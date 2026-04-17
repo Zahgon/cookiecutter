@@ -29,7 +29,7 @@ class JsonifyExtension(Extension):
         super().__init__(environment)
 
         def jsonify(obj: Any, indent: int = 4) -> str:
-            return json.dumps(obj, sort_keys=True, indent=indent)
+            pass
 
         environment.filters['jsonify'] = jsonify
 
@@ -42,11 +42,7 @@ class RandomStringExtension(Extension):
         super().__init__(environment)
 
         def random_ascii_string(length: int, punctuation: bool = False) -> str:
-            if punctuation:
-                corpus = f'{string.ascii_letters}{string.punctuation}'
-            else:
-                corpus = string.ascii_letters
-            return "".join(choice(corpus) for _ in range(length))
+            pass
 
         environment.globals.update(random_ascii_string=random_ascii_string)
 
@@ -74,21 +70,7 @@ class SlugifyExtension(Extension):
             allow_unicode: bool = False,
         ) -> str:
             """Slugifies the value."""
-            return pyslugify(
-                value,
-                entities,
-                decimal,
-                hexadecimal,
-                max_length,
-                word_boundary,
-                separator,
-                save_order,
-                stopwords,
-                regex_pattern,
-                lowercase,
-                replacements,
-                allow_unicode,
-            )
+            pass
 
         environment.filters['slugify'] = slugify
 
@@ -125,51 +107,11 @@ class TimeExtension(Extension):
         offset: str,
         datetime_format: str | None,
     ) -> str:
-        d = arrow.now(timezone)
-
-        # parse shift params from offset and include operator
-        shift_params = {}
-        for param in offset.split(','):
-            interval, value = param.split('=')
-            shift_params[interval.strip()] = float(operator + value.strip())
-        d = d.shift(**shift_params)
-
-        if datetime_format is None:
-            datetime_format = self.environment.datetime_format  # type: ignore[attr-defined]
-        return d.strftime(datetime_format)
+        pass
 
     def _now(self, timezone: str, datetime_format: str | None) -> str:
-        if datetime_format is None:
-            datetime_format = self.environment.datetime_format  # type: ignore[attr-defined]
-        return arrow.now(timezone).strftime(datetime_format)
+        pass
 
     def parse(self, parser: Parser) -> nodes.Output:
         """Parse datetime template and add datetime value."""
-        lineno = next(parser.stream).lineno
-
-        node = parser.parse_expression()
-
-        if parser.stream.skip_if('comma'):
-            datetime_format = parser.parse_expression()
-        else:
-            datetime_format = nodes.Const(None)
-
-        if isinstance(node, nodes.Add):
-            call_method = self.call_method(
-                '_datetime',
-                [node.left, nodes.Const('+'), node.right, datetime_format],
-                lineno=lineno,
-            )
-        elif isinstance(node, nodes.Sub):
-            call_method = self.call_method(
-                '_datetime',
-                [node.left, nodes.Const('-'), node.right, datetime_format],
-                lineno=lineno,
-            )
-        else:
-            call_method = self.call_method(
-                '_now',
-                [node, datetime_format],
-                lineno=lineno,
-            )
-        return nodes.Output([call_method], lineno=lineno)
+        pass

@@ -46,17 +46,7 @@ def validate_extra_context(
     _ctx: Context, _param: Parameter, value: Iterable[str]
 ) -> OrderedDict[str, str] | None:
     """Validate extra context."""
-    for string in value:
-        if '=' not in string:
-            msg = (
-                f"EXTRA_CONTEXT should contain items of the form key=value; "
-                f"'{string}' doesn't match that form"
-            )
-            raise click.BadParameter(msg)
-
-    # Convert tuple -- e.g.: ('program_name=foobar', 'startsecs=66')
-    # to dict -- e.g.: {'program_name': 'foobar', 'startsecs': '66'}
-    return OrderedDict(s.split('=', 1) for s in value) or None
+    pass
 
 
 def list_installed_templates(

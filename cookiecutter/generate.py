@@ -313,15 +313,7 @@ def _run_hook_from_repo_dir(
     :param delete_project_on_failure: Delete the project directory on hook
         failure?
     """
-    warnings.warn(
-        "The '_run_hook_from_repo_dir' function is deprecated, "
-        "use 'cookiecutter.hooks.run_hook_from_repo_dir' instead",
-        DeprecationWarning,
-        2,
-    )
-    run_hook_from_repo_dir(
-        repo_dir, hook_name, project_dir, context, delete_project_on_failure
-    )
+    pass
 
 
 def generate_files(
